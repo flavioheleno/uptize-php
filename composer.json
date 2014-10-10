@@ -1,0 +1,33 @@
+{
+    "name": "flavioheleno/uptize-php",
+    "description": "PHP Client for uptize.me monitoring service",
+    "keywords": ["monitoring", "monitor", "status", "uptize"],
+    "homepage": "http://flavioheleno.github.io/uptize-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Flávio Heleno",
+            "email": "flavio@appdeck.com.br",
+            "homepage": "http://flavioheleno.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "guzzlehttp/guzzle": "4.*",
+        "nategood/commando": "*",
+        "monolog/monolog": "1.10.0"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.1.*",
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "uptize": "src",
+            "uptizetest": "tests"
+        }
+    },
+    "bin": ["bin/uptize.php"],
+    "minimum-stability": "dev"
+}
