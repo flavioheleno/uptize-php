@@ -3,39 +3,47 @@
 
 date_default_timezone_set('UTC');
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$cmd = new Commando\Command;
-
-$cmd->setHelp('uptize-php cli v0.1.1')
-	->flag('c')
-		->aka('config')
-		->describedAs('Configuration file')
-
-	->flag('d')
-		->aka('dryRun')
-		->describedAs('Dry run (do not send check data to uptize.me)')
-		->boolean()
-
-	->flag('k')
-		->aka('key')
-		->describedAs('Machine Key to send check data to uptize.me')
-
-	->flag('o')
-		->aka('output')
-		->describedAs('Output check data to a file')
-
-	->flag('v')
-		->aka('verbose')
-		->describedAs('Verbose output')
-		->boolean()
-
-	->flag('l')
-		->aka('log')
-		->describedAs('Log output')
-		->default(__DIR__ . '/uptize.log');
+foreach (array(__DIR__ . '/../../../autoload.php', __DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file)
+	if (file_exists($file)) {
+		define('COMPOSER_AUTOLOADER', $file);
+		break;
+	}
 
 try {
+	if (defined('COMPOSER_AUTOLOADER'))
+		require_once COMPOSER_AUTOLOADER;
+	else
+		throw new Exception('Composer autoloader not found!');
+
+	$cmd = new Commando\Command;
+
+	$cmd->setHelp('uptize-php cli v0.1.1')
+		->flag('c')
+			->aka('config')
+			->describedAs('Configuration file')
+
+		->flag('d')
+			->aka('dryRun')
+			->describedAs('Dry run (do not send check data to uptize.me)')
+			->boolean()
+
+		->flag('k')
+			->aka('key')
+			->describedAs('Machine Key to send check data to uptize.me')
+
+		->flag('o')
+			->aka('output')
+			->describedAs('Output check data to a file')
+
+		->flag('v')
+			->aka('verbose')
+			->describedAs('Verbose output')
+			->boolean()
+
+		->flag('l')
+			->aka('log')
+			->describedAs('Log output')
+			->default(__DIR__ . '/uptize.log');
 
 	if (empty($cmd['config']))
 		$config = __DIR__ . '/uptize.json';
